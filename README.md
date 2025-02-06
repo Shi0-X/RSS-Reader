@@ -3,7 +3,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Shi0-X/fullstack-javascript-project-137/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Shi0-X/fullstack-javascript-project-137/actions)
 
-### GitHub Actions CI/CD:
+### Automated Testing and Linting:
 ![Automated Testing and Linting](https://github.com/Shi0-X/RSS-Reader/actions/workflows/testing.yml/badge.svg)
 
 ### CodeClimate Badges:

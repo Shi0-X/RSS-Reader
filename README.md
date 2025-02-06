@@ -17,6 +17,17 @@
 
 ---
 
+## 🚀 Proyecto en Producción
+
+El proyecto está desplegado en Vercel y disponible en el siguiente enlace:
+
+🔗 **[RSS Reader - Versión en Vivo](https://rss-reader-six-beta.vercel.app)**
+
+[![Deployment Status](https://github.com/Shi0-X/RSS-Reader/actions/workflows/vercel.yml/badge.svg)](https://rss-reader-six-beta.vercel.app)
+
+
+
+
 ## **Descripción**
 Este es un agregador de RSS que permite gestionar y visualizar feeds de noticias en tiempo real.
 

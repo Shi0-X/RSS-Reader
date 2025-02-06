@@ -1,0 +1,7 @@
+{
+    "public": "dist",
+    "rewrites": [
+      { "source": "/bundle.js", "destination": "/dist/bundle.js" }
+    ]
+  }
+  

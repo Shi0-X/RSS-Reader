@@ -12,6 +12,9 @@
 ### Vercel Deployment:
 [![Vercel Status](https://vercel-badge.now.sh/Shi0-X/RSS-Reader)](https://rss-reader-six-beta.vercel.app)
 
+### Vercel Deployment:
+[![Deployment Status](https://github.com/Shi0-X/RSS-Reader/actions/workflows/vercel.yml/badge.svg)](https://rss-reader-six-beta.vercel.app)
+
 ---
 
 ## **Descripción**

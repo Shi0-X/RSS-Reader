@@ -9,24 +9,17 @@
 ### CodeClimate Badges:
 [![Maintainability](https://api.codeclimate.com/v1/badges/44b992ffde51d74f4305/maintainability)](https://codeclimate.com/github/Shi0-X/RSS-Reader/maintainability)
 
-### Vercel Deployment:
-[![Vercel Status](https://vercel-badge.now.sh/Shi0-X/RSS-Reader)](https://rss-reader-six-beta.vercel.app)
-
-### Vercel Deployment:
-[![Deployment Status](https://github.com/Shi0-X/RSS-Reader/actions/workflows/vercel.yml/badge.svg)](https://rss-reader-six-beta.vercel.app)
-
----
-
 ## 🚀 Proyecto en Producción
 
 El proyecto está desplegado en Vercel y disponible en el siguiente enlace:
 
-🔗 **[RSS Reader - Versión en Vivo](https://rss-reader-six-beta.vercel.app)**
-
 [![Deployment Status](https://github.com/Shi0-X/RSS-Reader/actions/workflows/vercel.yml/badge.svg)](https://rss-reader-six-beta.vercel.app)
 
+🔗 **[RSS Reader - Versión en Vivo](https://rss-reader-six-beta.vercel.app)**
 
 
+
+---
 
 ## **Descripción**
 Este es un agregador de RSS que permite gestionar y visualizar feeds de noticias en tiempo real.

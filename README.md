@@ -24,4 +24,4 @@ Este es un agregador de RSS que permite gestionar y visualizar feeds de noticias
 ```sh
 git clone https://github.com/Shi0-X/RSS-Reader.git
 cd RSS-Reader
-npm install
+npm install 

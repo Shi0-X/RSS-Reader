@@ -51,7 +51,7 @@ const renderPosts = (posts, state, elements) => {
     link.classList.add(state.readPosts.has(post.link) ? "fw-normal" : "fw-bold");
 
     const previewButton = document.createElement("button");
-    previewButton.textContent = "Vista previa";
+    previewButton.textContent = "Preview";
     previewButton.classList.add("btn", "btn-secondary", "btn-sm", "ms-2");
     previewButton.dataset.bsToggle = "modal";
     previewButton.dataset.bsTarget = "#postModal";

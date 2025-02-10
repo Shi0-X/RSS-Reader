@@ -52,6 +52,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         watchedState.errors = null;
 
+        // ✅ Mostrar mensaje de éxito esperado por las pruebas
+        let successMessage = document.getElementById("rss-success-message");
+        if (!successMessage) {
+          successMessage = document.createElement("p");
+          successMessage.id = "rss-success-message";
+          input.insertAdjacentElement("afterend", successMessage);
+        }
+        successMessage.textContent = "RSS has been loaded";
+        successMessage.style.color = "green";
+
         // ✅ Resetear input y feedback al éxito
         input.classList.remove("is-invalid");
         input.classList.add("is-valid");
@@ -70,6 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch((err) => {
         watchedState.errors = err.message;
+
+        // 🔹 Ocultar mensaje de éxito si hay un error
+        const successMessage = document.getElementById("rss-success-message");
+        if (successMessage) {
+          successMessage.textContent = "";
+        }
 
         // 🔹 Mostrar error visualmente en el input y feedback
         input.classList.remove("is-valid");

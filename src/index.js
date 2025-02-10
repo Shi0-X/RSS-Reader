@@ -14,16 +14,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const feedsContainer = document.getElementById('rss-feeds');
   const postsContainer = document.getElementById('rss-posts');
 
+  // 🔹 Estado de la aplicación
   const state = {
     feeds: [],
     posts: [],
     errors: null,
+    readPosts: new Set(), // 🔹 Almacena los posts leídos
   };
 
   window.state = state;
 
   const watchedState = initWatchers(state, { input, feedback, feedsContainer, postsContainer });
 
+  // 🔹 Esquema de validación con Yup
   const schema = yup.object().shape({
     url: yup.string().url(i18next.t('form.errors.invalid')).required(i18next.t('form.errors.required')),
   });
@@ -45,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(({ title, description, posts }) => {
         watchedState.feeds.push({ url, title, description });
 
-        // ✅ Agregar nuevos posts al inicio de la lista (primera carga)
+        // ✅ Agregar nuevos posts al inicio de la lista (manteniendo orden correcto)
         watchedState.posts = [...posts, ...watchedState.posts];
 
         watchedState.errors = null;
@@ -77,5 +80,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.error('❌ Error al agregar feed:', err.message);
       });
+  });
+
+  // 🔹 Evento para detectar clics en los posts y marcarlos como leídos
+  postsContainer.addEventListener('click', (event) => {
+    if (event.target.dataset.postLink) {
+      const postLink = event.target.dataset.postLink;
+      state.readPosts.add(postLink);
+      watchedState.posts = [...state.posts]; // Forzar re-renderizado
+    }
   });
 });

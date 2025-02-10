@@ -1,6 +1,6 @@
 import onChange from 'on-change';
 
-// 🔹 Función para renderizar los feeds en la UI
+// 🔹 Renderiza la lista de feeds
 const renderFeeds = (feeds, elements) => {
   elements.feedsContainer.innerHTML = '';
 
@@ -14,13 +14,13 @@ const renderFeeds = (feeds, elements) => {
   feeds.forEach((feed) => {
     const listItem = document.createElement('li');
     listItem.classList.add('list-group-item');
-
+    
     const title = document.createElement('h3');
     title.textContent = feed.title;
-
+    
     const description = document.createElement('p');
     description.textContent = feed.description;
-
+    
     listItem.appendChild(title);
     listItem.appendChild(description);
     feedsList.appendChild(listItem);
@@ -29,13 +29,8 @@ const renderFeeds = (feeds, elements) => {
   elements.feedsContainer.appendChild(feedsList);
 };
 
-// 🔹 Función para renderizar los posts en la UI
-const renderPosts = (posts, elements) => {
-  if (!elements.postsContainer) {
-    console.error('❌ El contenedor de posts no está presente en el DOM.');
-    return;
-  }
-
+// 🔹 Renderiza la lista de posts
+const renderPosts = (posts, state, elements) => {
   elements.postsContainer.innerHTML = '';
 
   const postsTitle = document.createElement('h2');
@@ -45,7 +40,6 @@ const renderPosts = (posts, elements) => {
   const postsList = document.createElement('ul');
   postsList.classList.add('list-group');
 
-  // 🔹 Asegurar que los posts **se rendericen en orden correcto**
   posts.forEach((post) => {
     const listItem = document.createElement('li');
     listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start');
@@ -54,21 +48,37 @@ const renderPosts = (posts, elements) => {
     link.href = post.link;
     link.textContent = post.title;
     link.target = '_blank';
+    link.classList.add(state.readPosts.has(post.link) ? 'fw-normal' : 'fw-bold');
+
+    const previewButton = document.createElement('button');
+    previewButton.textContent = 'Vista previa';
+    previewButton.classList.add('btn', 'btn-secondary', 'btn-sm', 'ms-2');
+    previewButton.dataset.bsToggle = 'modal';
+    previewButton.dataset.bsTarget = '#postModal';
+
+    previewButton.addEventListener('click', () => {
+      document.getElementById('postModalLabel').textContent = post.title;
+      document.getElementById('postModalBody').textContent = post.description;
+      state.readPosts.add(post.link);
+      link.classList.remove('fw-bold');
+      link.classList.add('fw-normal');
+    });
 
     listItem.appendChild(link);
+    listItem.appendChild(previewButton);
     postsList.appendChild(listItem);
   });
 
   elements.postsContainer.appendChild(postsList);
 };
 
-// 🔹 Función principal para inicializar los watchers
+// 🔹 Inicializa los watchers
 const initWatchers = (state, elements) => onChange(state, (path, value) => {
   if (path === 'feeds') {
     renderFeeds(value, elements);
   }
   if (path === 'posts') {
-    renderPosts(value, elements);
+    renderPosts(value, state, elements);
   }
 });
 

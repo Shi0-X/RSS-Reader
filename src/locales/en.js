@@ -5,7 +5,7 @@ export default {
       submit: "Add Feed",
       success: "RSS has been loaded", // ✅ Mensaje esperado por las pruebas
       errors: {
-        invalid: "Invalid URL",
+        invalid: "Must be valid URL",
         duplicate: "RSS already exists", // ✅ Mensaje esperado por las pruebas
         required: "This field cannot be empty",
         invalidRSS: "The content of this feed is not valid",

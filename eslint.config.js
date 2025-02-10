@@ -14,7 +14,11 @@ export default [
       "indent": ["error", 2],
       "quotes": ["error", "double"],
       "semi": ["error", "always"],
+      "comma-dangle": ["error", "always-multiline"],
+      "no-trailing-spaces": "error",
+      "no-multiple-empty-lines": ["error", { "max": 1 }],
+      "object-curly-newline": ["error", { "consistent": true }],
+      "prefer-destructuring": ["error", { "object": true, "array": true }],
     },
   },
 ];
-  

@@ -10,5 +10,4 @@ export const renderFeedback = (input, feedback, message, isValid) => {
     feedback.style.display = "block";
   }
 };
-  
-  
+

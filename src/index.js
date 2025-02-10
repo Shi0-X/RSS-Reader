@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🔹 Evento para detectar clics en los posts y marcarlos como leídos
   postsContainer.addEventListener("click", (event) => {
     if (event.target.dataset.postLink) {
-      const postLink = event.target.dataset.postLink;
+      const {postLink} = event.target.dataset;
       state.readPosts.add(postLink);
       watchedState.posts = [...state.posts]; // Forzar re-renderizado
     }

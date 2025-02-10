@@ -10,7 +10,7 @@ const parseRss = (xmlString) => {
   const items = xmlDoc.querySelectorAll("item");
 
   if (!titleElement || !descriptionElement || items.length === 0) {
-    throw new Error(i18next.t("form.errors.invalidRSS")); 
+    throw new Error(i18next.t("form.errors.invalidRSS"));
   }
 
   const title = titleElement.textContent;
@@ -57,7 +57,7 @@ const updateFeeds = (state, watchedState) => {
             watchedState.posts = [...newPosts, ...watchedState.posts];
           }
         })
-        .catch((error) => console.error(`❌ Error al actualizar ${feed.url}:`, error.message))
+        .catch((error) => console.error(`❌ Error al actualizar ${feed.url}:`, error.message)),
     );
 
     Promise.all(feedPromises).finally(() => {

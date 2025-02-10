@@ -14,13 +14,13 @@ const renderFeeds = (feeds, elements) => {
   feeds.forEach((feed) => {
     const listItem = document.createElement("li");
     listItem.classList.add("list-group-item");
-    
+
     const title = document.createElement("h3");
     title.textContent = feed.title;
-    
+
     const description = document.createElement("p");
     description.textContent = feed.description;
-    
+
     listItem.appendChild(title);
     listItem.appendChild(description);
     feedsList.appendChild(listItem);

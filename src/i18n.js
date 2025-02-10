@@ -12,7 +12,7 @@ i18next
     resources: {
       es,
       en,
-    }
+    },
   });
 
 // Exponer i18next en window para acceder desde la consola

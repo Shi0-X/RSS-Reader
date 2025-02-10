@@ -1,8 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as yup from "yup";
-import i18next from "./i18n";
-import { fetchRss, updateFeeds } from "./rss";
-import initWatchers from "./watchers";
+import i18next from "./i18n.js";
+import { fetchRss, updateFeeds } from "./rss.js";
+import initWatchers from "./watchers.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ DOM completamente cargado");

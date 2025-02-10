@@ -1,5 +1,5 @@
 import axios from "axios";
-import i18next from "./i18n";
+import i18next from "./i18n.js";
 
 const parseRss = (xmlString) => {
   const parser = new DOMParser();

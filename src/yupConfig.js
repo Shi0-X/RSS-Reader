@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import i18next from "./i18n";
+import i18next from "./i18n.js";
 
 yup.setLocale({
   mixed: {

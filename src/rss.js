@@ -1,24 +1,24 @@
-import axios from "axios";
-import i18next from "./i18n.js";
+import axios from 'axios';
+import i18next from './i18n.js';
 
 const parseRss = (xmlString) => {
   const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+  const xmlDoc = parser.parseFromString(xmlString, 'application/xml');
 
-  const titleElement = xmlDoc.querySelector("channel > title");
-  const descriptionElement = xmlDoc.querySelector("channel > description");
-  const items = xmlDoc.querySelectorAll("item");
+  const titleElement = xmlDoc.querySelector('channel > title');
+  const descriptionElement = xmlDoc.querySelector('channel > description');
+  const items = xmlDoc.querySelectorAll('item');
 
   if (!titleElement || !descriptionElement || items.length === 0) {
-    throw new Error(i18next.t("form.errors.invalidRSS"));
+    throw new Error(i18next.t('form.errors.invalidRSS'));
   }
 
   const title = titleElement.textContent;
   const description = descriptionElement.textContent;
   const posts = [...items].map((item) => ({
-    title: item.querySelector("title").textContent,
-    link: item.querySelector("link").textContent,
-    description: item.querySelector("description")?.textContent || "",
+    title: item.querySelector('title').textContent,
+    link: item.querySelector('link').textContent,
+    description: item.querySelector('description')?.textContent || '',
   }));
 
   return { title, description, posts };
@@ -30,14 +30,14 @@ const fetchRss = async (url) => {
   try {
     const response = await axios.get(proxyUrl);
     if (!response.data.contents) {
-      throw new Error(i18next.t("form.errors.invalidRSS"));
+      throw new Error(i18next.t('form.errors.invalidRSS'));
     }
     return parseRss(response.data.contents);
   } catch (error) {
     if (error.isAxiosError) {
-      throw new Error(i18next.t("form.errors.networkError"));
+      throw new Error(i18next.t('form.errors.networkError'));
     }
-    throw new Error(i18next.t("form.errors.invalidRSS"));
+    throw new Error(i18next.t('form.errors.invalidRSS'));
   }
 };
 

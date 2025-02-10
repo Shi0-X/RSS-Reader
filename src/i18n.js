@@ -1,13 +1,13 @@
-import i18next from "i18next";
-import Backend from "i18next-http-backend";
-import es from "./locales/es.js";
-import en from "./locales/en.js";
+import i18next from 'i18next';
+import Backend from 'i18next-http-backend';
+import es from './locales/es.js';
+import en from './locales/en.js';
 
 i18next
   .use(Backend)
   .init({
-    lng: "en", // Idioma por defecto
-    fallbackLng: "en",
+    lng: 'en', // Idioma por defecto
+    fallbackLng: 'en',
     debug: true, // Activa logs en consola para depuración
     resources: {
       es,

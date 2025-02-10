@@ -1,12 +1,12 @@
-import * as yup from "yup";
-import i18next from "./i18n.js";
+import * as yup from 'yup';
+import i18next from './i18n.js';
 
 yup.setLocale({
   mixed: {
-    required: () => i18next.t("form.errors.required"),
+    required: () => i18next.t('form.errors.required'),
   },
   string: {
-    url: () => i18next.t("form.errors.invalid_url"),
+    url: () => i18next.t('form.errors.invalid_url'),
   },
 });
 

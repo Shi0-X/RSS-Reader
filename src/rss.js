@@ -24,41 +24,34 @@ const parseRss = (xmlString) => {
   return { title, description, posts };
 };
 
-const fetchRss = async (url) => {
-  const proxyUrl = `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`;
-
-  try {
-    const response = await axios.get(proxyUrl);
+const fetchRss = (url) => axios
+  .get(`https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`)
+  .then((response) => {
     if (!response.data.contents) {
       throw new Error(i18next.t('form.errors.invalidRSS'));
     }
     return parseRss(response.data.contents);
-  } catch (error) {
+  })
+  .catch((error) => {
     if (error.isAxiosError) {
       throw new Error(i18next.t('form.errors.networkError'));
     }
     throw new Error(i18next.t('form.errors.invalidRSS'));
-  }
-};
+  });
 
-// 🔹 Función para verificar actualizaciones de feeds
 const updateFeeds = (state, watchedState) => {
   const checkForUpdates = () => {
-    const feedPromises = state.feeds.map((feed) =>
-      fetchRss(feed.url)
-        .then(({ posts }) => {
-          const existingPostLinks = new Set(state.posts.map((post) => post.link));
-          const newPosts = posts.filter((post) => !existingPostLinks.has(post.link));
+    const feedPromises = state.feeds.map((feed) => fetchRss(feed.url)
+      .then(({ posts }) => {
+        const existingPostLinks = new Set(state.posts.map((post) => post.link));
+        const newPosts = posts.filter((post) => !existingPostLinks.has(post.link));
 
-          if (newPosts.length > 0) {
-            console.log(`🔄 ${newPosts.length} nuevos posts detectados en ${feed.title}`);
-
-            // 🔹 Agregar los nuevos posts **al inicio** en lugar de al final
-            watchedState.posts = [...newPosts, ...watchedState.posts];
-          }
-        })
-        .catch((error) => console.error(`❌ Error al actualizar ${feed.url}:`, error.message)),
-    );
+        if (newPosts.length > 0) {
+          console.log(`🔄 ${newPosts.length} nuevos posts detectados en ${feed.title}`);
+          watchedState.posts = [...newPosts, ...watchedState.posts];
+        }
+      })
+      .catch((error) => console.error(`❌ Error al actualizar ${feed.url}:`, error.message)));
 
     Promise.all(feedPromises).finally(() => {
       setTimeout(checkForUpdates, 5000);

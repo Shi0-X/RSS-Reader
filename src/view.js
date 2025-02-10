@@ -1,4 +1,4 @@
-export const renderFeedback = (input, feedback, message, isValid) => {
+const renderFeedback = (input, feedback, message, isValid) => {
   if (isValid) {
     input.classList.remove('is-invalid');
     input.classList.add('is-valid');
@@ -11,3 +11,4 @@ export const renderFeedback = (input, feedback, message, isValid) => {
   }
 };
 
+export default renderFeedback;

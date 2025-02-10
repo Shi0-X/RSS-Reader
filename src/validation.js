@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const validateURL = (url, existingFeeds) => {
+const validateURL = (url, existingFeeds) => {
   const schema = yup.string()
     .url('La URL no es válida')
     .notOneOf(existingFeeds, 'El feed ya fue agregado')
@@ -10,3 +10,5 @@ export const validateURL = (url, existingFeeds) => {
     .then(() => ({ isValid: true, error: null }))
     .catch((error) => ({ isValid: false, error: error.message }));
 };
+
+export default validateURL;

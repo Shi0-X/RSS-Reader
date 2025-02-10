@@ -23,7 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.state = state;
 
-  const watchedState = initWatchers(state, { input, feedback, feedsContainer, postsContainer });
+  const watchedState = initWatchers(state, {
+    input,
+    feedback,
+    feedsContainer,
+    postsContainer,
+  });
 
   // 🔹 Esquema de validación con Yup
   const schema = yup.object().shape({
@@ -52,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         watchedState.errors = null;
 
-        // ✅ Mostrar mensaje de éxito esperado por las pruebas
         let successMessage = document.getElementById('rss-success-message');
         if (!successMessage) {
           successMessage = document.createElement('p');
@@ -62,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         successMessage.textContent = 'RSS has been loaded';
         successMessage.style.color = 'green';
 
-        // ✅ Resetear input y feedback al éxito
         input.classList.remove('is-invalid');
         input.classList.add('is-valid');
         feedback.textContent = '';
@@ -73,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
         form.reset();
         input.focus();
 
-        // 🔹 Iniciar la actualización automática
         if (state.feeds.length === 1) {
           updateFeeds(state, watchedState);
         }
@@ -81,13 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch((err) => {
         watchedState.errors = err.message;
 
-        // 🔹 Ocultar mensaje de éxito si hay un error
         const successMessage = document.getElementById('rss-success-message');
         if (successMessage) {
           successMessage.textContent = '';
         }
 
-        // 🔹 Mostrar error visualmente en el input y feedback
         input.classList.remove('is-valid');
         input.classList.add('is-invalid');
         feedback.textContent = err.message;
@@ -97,12 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   });
 
-  // 🔹 Evento para detectar clics en los posts y marcarlos como leídos
   postsContainer.addEventListener('click', (event) => {
     if (event.target.dataset.postLink) {
       const { postLink } = event.target.dataset;
       state.readPosts.add(postLink);
-      watchedState.posts = [...state.posts]; // Forzar re-renderizado
+      watchedState.posts = [...state.posts];
     }
   });
 });

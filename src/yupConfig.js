@@ -10,6 +10,8 @@ yup.setLocale({
   },
 });
 
-export const urlSchema = yup.object().shape({
+const urlSchema = yup.object().shape({
   url: yup.string().url().required(),
 });
+
+export default urlSchema;

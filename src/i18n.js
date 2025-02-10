@@ -6,7 +6,7 @@ import en from "./locales/en.js";
 i18next
   .use(Backend)
   .init({
-    lng: "es", // Idioma por defecto
+    lng: "en", // Idioma por defecto
     fallbackLng: "en",
     debug: true, // Activa logs en consola para depuración
     resources: {

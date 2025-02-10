@@ -10,7 +10,7 @@ const parseRss = (xmlString) => {
   const items = xmlDoc.querySelectorAll('item');
 
   if (!titleElement || !descriptionElement || items.length === 0) {
-    throw new Error(i18next.t('form.errors.invalidRSS')); // 🔹 Ahora usa el mensaje correcto
+    throw new Error(i18next.t('form.errors.invalidRSS')); 
   }
 
   const title = titleElement.textContent;
@@ -29,18 +29,43 @@ const fetchRss = async (url) => {
 
   try {
     const response = await axios.get(proxyUrl);
-
     if (!response.data.contents) {
-      throw new Error(i18next.t('form.errors.invalidRSS')); // 🔹 Si la respuesta está vacía, no es un RSS válido
+      throw new Error(i18next.t('form.errors.invalidRSS'));
     }
-
     return parseRss(response.data.contents);
   } catch (error) {
     if (error.isAxiosError) {
-      throw new Error(i18next.t('form.errors.networkError')); // 🔹 Error de red
+      throw new Error(i18next.t('form.errors.networkError'));
     }
-    throw new Error(i18next.t('form.errors.invalidRSS')); // 🔹 Error de parsing, feed no válido
+    throw new Error(i18next.t('form.errors.invalidRSS'));
   }
 };
 
-export default fetchRss;
+// 🔹 Función para verificar actualizaciones de feeds
+const updateFeeds = (state, watchedState) => {
+  const checkForUpdates = () => {
+    const feedPromises = state.feeds.map((feed) =>
+      fetchRss(feed.url)
+        .then(({ posts }) => {
+          const existingPostLinks = new Set(state.posts.map((post) => post.link));
+          const newPosts = posts.filter((post) => !existingPostLinks.has(post.link));
+
+          if (newPosts.length > 0) {
+            console.log(`🔄 ${newPosts.length} nuevos posts detectados en ${feed.title}`);
+
+            // 🔹 Agregar los nuevos posts **al inicio** en lugar de al final
+            watchedState.posts = [...newPosts, ...watchedState.posts];
+          }
+        })
+        .catch((error) => console.error(`❌ Error al actualizar ${feed.url}:`, error.message))
+    );
+
+    Promise.all(feedPromises).finally(() => {
+      setTimeout(checkForUpdates, 5000);
+    });
+  };
+
+  checkForUpdates();
+};
+
+export { fetchRss, updateFeeds };

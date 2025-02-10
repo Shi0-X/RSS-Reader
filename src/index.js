@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as yup from 'yup';
 import onChange from 'on-change';
 import i18next from './i18n';
-import fetchRss from './rss';
+import { fetchRss, updateFeeds } from './rss';
 import initWatchers from './watchers';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -44,7 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(({ title, description, posts }) => {
         watchedState.feeds.push({ url, title, description });
-        watchedState.posts.push(...posts);
+
+        // ✅ Agregar nuevos posts al inicio de la lista (primera carga)
+        watchedState.posts = [...posts, ...watchedState.posts];
+
         watchedState.errors = null;
 
         // ✅ Resetear input y feedback al éxito
@@ -57,6 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         form.reset();
         input.focus();
+
+        // 🔹 Iniciar la actualización automática
+        if (state.feeds.length === 1) {
+          updateFeeds(state, watchedState);
+        }
       })
       .catch((err) => {
         watchedState.errors = err.message;

@@ -1,18 +1,12 @@
 import onChange from 'on-change';
 
+// 🔹 Función para renderizar los feeds en la UI
 const renderFeeds = (feeds, elements) => {
-  const { feedsContainer } = elements;
-
-  if (!feedsContainer) {
-    console.error('El contenedor de feeds no está presente en el DOM.');
-    return;
-  }
-
-  feedsContainer.innerHTML = '';
+  elements.feedsContainer.innerHTML = '';
 
   const feedsTitle = document.createElement('h2');
   feedsTitle.textContent = 'Feeds';
-  feedsContainer.appendChild(feedsTitle);
+  elements.feedsContainer.appendChild(feedsTitle);
 
   const feedsList = document.createElement('ul');
   feedsList.classList.add('list-group', 'mb-4');
@@ -32,26 +26,26 @@ const renderFeeds = (feeds, elements) => {
     feedsList.appendChild(listItem);
   });
 
-  feedsContainer.appendChild(feedsList);
+  elements.feedsContainer.appendChild(feedsList);
 };
 
+// 🔹 Función para renderizar los posts en la UI
 const renderPosts = (posts, elements) => {
-  const { postsContainer } = elements;
-
-  if (!postsContainer) {
-    console.error('El contenedor de posts no está presente en el DOM.');
+  if (!elements.postsContainer) {
+    console.error('❌ El contenedor de posts no está presente en el DOM.');
     return;
   }
 
-  postsContainer.innerHTML = '';
+  elements.postsContainer.innerHTML = '';
 
   const postsTitle = document.createElement('h2');
   postsTitle.textContent = 'Posts';
-  postsContainer.appendChild(postsTitle);
+  elements.postsContainer.appendChild(postsTitle);
 
   const postsList = document.createElement('ul');
   postsList.classList.add('list-group');
 
+  // 🔹 Asegurar que los posts **se rendericen en orden correcto**
   posts.forEach((post) => {
     const listItem = document.createElement('li');
     listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start');
@@ -65,9 +59,10 @@ const renderPosts = (posts, elements) => {
     postsList.appendChild(listItem);
   });
 
-  postsContainer.appendChild(postsList);
+  elements.postsContainer.appendChild(postsList);
 };
 
+// 🔹 Función principal para inicializar los watchers
 const initWatchers = (state, elements) => onChange(state, (path, value) => {
   if (path === 'feeds') {
     renderFeeds(value, elements);

@@ -8,9 +8,9 @@ export default {
         invalid: "Must be valid URL",
         duplicate: "RSS already exists", // ✅ Mensaje esperado por las pruebas
         required: "This field cannot be empty",
-        invalidRSS: "The content of this feed is not valid",
-        networkError: "Could not connect to the server. Check your internet connection.",
-        unknownError: "An unexpected error occurred. Please try again.",
+        invalidRSS: "No valid RSS in the resource",
+        networkError: "Network error",
+        unknownError: "Something went wrong",
       },
     },
   },

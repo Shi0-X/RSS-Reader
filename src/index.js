@@ -1,18 +1,17 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import * as yup from 'yup';
-import onChange from 'on-change';
-import i18next from './i18n';
-import { fetchRss, updateFeeds } from './rss';
-import initWatchers from './watchers';
+import "bootstrap/dist/css/bootstrap.min.css";
+import * as yup from "yup";
+import i18next from "./i18n";
+import { fetchRss, updateFeeds } from "./rss";
+import initWatchers from "./watchers";
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('✅ DOM completamente cargado');
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("✅ DOM completamente cargado");
 
-  const form = document.getElementById('rss-form');
-  const input = document.getElementById('rss-input');
-  const feedback = document.getElementById('rss-feedback');
-  const feedsContainer = document.getElementById('rss-feeds');
-  const postsContainer = document.getElementById('rss-posts');
+  const form = document.getElementById("rss-form");
+  const input = document.getElementById("rss-input");
+  const feedback = document.getElementById("rss-feedback");
+  const feedsContainer = document.getElementById("rss-feeds");
+  const postsContainer = document.getElementById("rss-posts");
 
   // 🔹 Estado de la aplicación
   const state = {
@@ -28,12 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 🔹 Esquema de validación con Yup
   const schema = yup.object().shape({
-    url: yup.string().url(i18next.t('form.errors.invalid')).required(i18next.t('form.errors.required')),
+    url: yup.string().url(i18next.t("form.errors.invalid")).required(i18next.t("form.errors.required")),
   });
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener("submit", (event) => {
     event.preventDefault();
-    console.log('✅ Formulario enviado');
+    console.log("✅ Formulario enviado");
 
     const url = input.value.trim();
 
@@ -41,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .validate({ url })
       .then(() => {
         if (state.feeds.some((feed) => feed.url === url)) {
-          throw new Error(i18next.t('form.errors.duplicate'));
+          throw new Error(i18next.t("form.errors.duplicate"));
         }
         return fetchRss(url);
       })
@@ -54,12 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
         watchedState.errors = null;
 
         // ✅ Resetear input y feedback al éxito
-        input.classList.remove('is-invalid');
-        input.classList.add('is-valid');
-        feedback.textContent = '';
-        feedback.style.display = 'none';
+        input.classList.remove("is-invalid");
+        input.classList.add("is-valid");
+        feedback.textContent = "";
+        feedback.style.display = "none";
 
-        console.log('✅ Feed agregado correctamente:', { title, description, posts });
+        console.log("✅ Feed agregado correctamente:", { title, description, posts });
 
         form.reset();
         input.focus();
@@ -73,17 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
         watchedState.errors = err.message;
 
         // 🔹 Mostrar error visualmente en el input y feedback
-        input.classList.remove('is-valid');
-        input.classList.add('is-invalid');
+        input.classList.remove("is-valid");
+        input.classList.add("is-invalid");
         feedback.textContent = err.message;
-        feedback.style.display = 'block';
+        feedback.style.display = "block";
 
-        console.error('❌ Error al agregar feed:', err.message);
+        console.error("❌ Error al agregar feed:", err.message);
       });
   });
 
   // 🔹 Evento para detectar clics en los posts y marcarlos como leídos
-  postsContainer.addEventListener('click', (event) => {
+  postsContainer.addEventListener("click", (event) => {
     if (event.target.dataset.postLink) {
       const postLink = event.target.dataset.postLink;
       state.readPosts.add(postLink);

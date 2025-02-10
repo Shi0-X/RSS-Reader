@@ -1,5 +1,5 @@
-import i18next from './i18n';
+import i18next from "./i18n";
 
 export default () => {
-  i18next.init({ lng: 'es' });
+  i18next.init({ lng: "es" });
 };

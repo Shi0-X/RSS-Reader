@@ -1,11 +1,11 @@
-import * as yup from 'yup';
+import * as yup from "yup";
 
 yup.setLocale({
   mixed: {
-    required: 'form.errors.required',
+    required: "form.errors.required",
   },
   string: {
-    url: 'form.errors.invalid',
+    url: "form.errors.invalid",
   },
 });
 
